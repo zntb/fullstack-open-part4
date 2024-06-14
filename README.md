@@ -156,3 +156,16 @@ Define a function called `mostBlogs` that receives an array of blogs as a parame
 ```
 
 If there are many top bloggers, then it is enough to return any one of them.
+
+### 4.7\*: Helper Functions and Unit Tests, step 5
+
+Define a function called `mostLikes` that receives an array of blogs as its parameter. The function returns the author, whose blog posts have the largest amount of likes. The return value also contains the total number of likes that the author has received:
+
+```js
+{
+  author: "Edsger W. Dijkstra",
+  likes: 17
+}
+```
+
+If there are many top bloggers, then it is enough to show any one of them.
