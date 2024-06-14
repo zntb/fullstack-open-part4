@@ -1,5 +1,7 @@
 # This repository contains the [Full Stack Open course](https://fullstackopen.com/) part4 exercises
 
+**All exercises are saved in a separate commit.**
+
 ## Exercises 4.1.-4.2
 
 **Note:** this course material was written with version v20.11.0 of Node.js. Please make sure that your version of Node is at least as new as the version used in the material (you can check the version by running `node -v` in the command line).
@@ -54,3 +56,13 @@ app.listen(PORT, () => {
 Turn the application into a functioning _npm_ project. To keep your development productive, configure the application to be executed with nodemon. You can create a new database for your application with MongoDB Atlas, or use the same database from the previous part's exercises.
 
 Verify that it is possible to add blogs to the list with Postman or the VS Code REST client and that the application returns the added blogs at the correct endpoint.
+
+### 4.2 Blog List, step 2
+
+Refactor the application into separate modules as shown earlier in this part of the course material.
+
+**NB** refactor your application in baby steps and verify that it works after every change you make. If you try to take a "shortcut" by refactoring many things at once, then [Murphy's law](https://en.wikipedia.org/wiki/Murphy%27s_law) will kick in and it is almost certain that something will break in your application. The "shortcut" will end up taking more time than moving forward slowly and systematically.
+
+One best practice is to commit your code every time it is in a stable state. This makes it easy to rollback to a situation where the application still works.
+
+If you're having issues with _content.body_ being undefined for seemingly no reason, make sure you didn't forget to add _app.use(express.json())_ near the top of the file.
