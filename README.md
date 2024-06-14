@@ -66,3 +66,36 @@ Refactor the application into separate modules as shown earlier in this part of 
 One best practice is to commit your code every time it is in a stable state. This makes it easy to rollback to a situation where the application still works.
 
 If you're having issues with _content.body_ being undefined for seemingly no reason, make sure you didn't forget to add _app.use(express.json())_ near the top of the file.
+
+## Exercises 4.3.-4.7
+
+Let's create a collection of helper functions that are best suited for working with the describe sections of the blog list. Create the functions into a file called _utils/list_helper.js_. Write your tests into an appropriately named test file under the tests directory.
+
+### 4.3: Helper Functions and Unit Tests, step 1
+
+First, define a dummy function that receives an array of blog posts as a parameter and always returns the value 1. The contents of the _list_helper.js_ file at this point should be the following:
+
+```js
+const dummy = (blogs) => {
+  // ...
+};
+
+module.exports = {
+  dummy,
+};
+```
+
+Verify that your test configuration works with the following test:
+
+```js
+const { test, describe } = require('node:test');
+const assert = require('node:assert');
+const listHelper = require('../utils/list_helper');
+
+test('dummy returns one', () => {
+  const blogs = [];
+
+  const result = listHelper.dummy(blogs);
+  assert.strictEqual(result, 1);
+});
+```
