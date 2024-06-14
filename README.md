@@ -139,3 +139,20 @@ You are bound to run into problems while writing tests. Remember the things that
 **NB** when you are comparing objects, the [deepStrictEqual](https://nodejs.org/api/assert.html#assertdeepstrictequalactual-expected-message) method is probably what you want to use, since the [strictEqual](https://nodejs.org/api/assert.html#assertstrictequalactual-expected-message) tries to verify that the two values are the same value, and not just that they contain the same properties. For differences between various assert module functions, you can refer to this [Stack Overflow answer](https://stackoverflow.com/questions/16745855/difference-between-equal-deep-equal-and-strict-equal/73937068#73937068).
 
 Write the tests for this exercise inside of a new _describe_ block. Do the same for the remaining exercises as well.
+
+### 4.6\*: Helper Functions and Unit Tests, step 4
+
+This and the next exercise are a little bit more challenging. Finishing these two exercises is not required to advance in the course material, so it may be a good idea to return to these once you're done going through the material for this part in its entirety.
+
+Finishing this exercise can be done without the use of additional libraries. However, this exercise is a great opportunity to learn how to use the [Lodash](https://lodash.com/) library.
+
+Define a function called `mostBlogs` that receives an array of blogs as a parameter. The function returns the _author_ who has the largest amount of blogs. The return value also contains the number of blogs the top author has:
+
+```js
+{
+  author: "Robert C. Martin",
+  blogs: 3
+}
+```
+
+If there are many top bloggers, then it is enough to return any one of them.
