@@ -28,6 +28,16 @@ test('all blogs are returned', async () => {
   assert.strictEqual(response.body.length, helper.initialBlogs.length);
 });
 
+test('unique identifier property of the blog posts is named id', async () => {
+  const response = await api.get('/api/blogs');
+  const blogs = response.body;
+
+  blogs.forEach((blog) => {
+    assert(blog.id, 'id property is missing');
+    assert(!blog._id, '_id property should not be present');
+  });
+});
+
 after(() => {
   mongoose.connection.close();
 });
