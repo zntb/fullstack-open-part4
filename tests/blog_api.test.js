@@ -107,6 +107,19 @@ test('POST /api/blogs blog without url is not added', async () => {
   assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length);
 });
 
+test('DELETE /api/blogs deletes a blog', async () => {
+  const blogsAtStart = await helper.blogsInDb();
+  const blogToDelete = blogsAtStart[0];
+
+  await api.delete(`/api/blogs/${blogToDelete.id}`).expect(204);
+
+  const blogsAtEnd = await helper.blogsInDb();
+  assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length - 1);
+
+  const titles = blogsAtEnd.map((r) => r.title);
+  assert(!titles.includes(blogToDelete.title));
+});
+
 after(() => {
   mongoose.connection.close();
 });
