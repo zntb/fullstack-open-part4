@@ -59,6 +59,30 @@ test('POST /api/blogs creates a new blog', async () => {
   assert(titles.includes('New Blog Post'));
 });
 
+test('POST /api/blogs without likes defaults to 0', async () => {
+  const newBlog = {
+    title: 'Blog Without Likes',
+    author: 'No Likes Author',
+    url: 'http://nolikes.com',
+  };
+
+  const response = await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(201)
+    .expect('Content-Type', /application\/json/);
+
+  assert.strictEqual(response.body.likes, 0);
+
+  const blogsAtEnd = await helper.blogsInDb();
+  assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length + 1);
+
+  const addedBlog = blogsAtEnd.find(
+    (blog) => blog.title === 'Blog Without Likes'
+  );
+  assert.strictEqual(addedBlog.likes, 0);
+});
+
 after(() => {
   mongoose.connection.close();
 });
