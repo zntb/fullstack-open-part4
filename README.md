@@ -217,3 +217,13 @@ Implement functionality for deleting a single blog post resource.
 Use the _async/await_ syntax. Follow [RESTful](https://fullstackopen.com/en/part3/node_js_and_express#rest) conventions when defining the HTTP API.
 
 Implement tests for the functionality.
+
+### 4.14 Blog List Expansions, step 2
+
+Implement functionality for updating the information of an individual blog post.
+
+Use _async/await_.
+
+The application mostly needs to update the number of _likes_ for a blog post. You can implement this functionality the same way that we implemented updating notes in [part 3](https://fullstackopen.com/en/part3/saving_data_to_mongo_db#other-operations).
+
+Implement tests for the functionality.

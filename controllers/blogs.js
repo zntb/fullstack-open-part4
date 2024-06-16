@@ -40,4 +40,27 @@ router.delete('/:id', async (request, response, next) => {
   }
 });
 
+router.put('/:id', async (request, response, next) => {
+  const { likes } = request.body;
+
+  const blog = {
+    likes,
+  };
+
+  try {
+    const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, blog, {
+      new: true,
+      runValidators: true,
+      context: 'query',
+    });
+    if (updatedBlog) {
+      response.json(updatedBlog);
+    } else {
+      response.status(404).end();
+    }
+  } catch (exception) {
+    next(exception);
+  }
+});
+
 module.exports = router;
