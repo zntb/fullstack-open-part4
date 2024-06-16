@@ -83,6 +83,30 @@ test('POST /api/blogs without likes defaults to 0', async () => {
   assert.strictEqual(addedBlog.likes, 0);
 });
 
+test('POST /api/blogs blog without title is not added', async () => {
+  const newBlog = {
+    author: 'No Title Author',
+    url: 'http://notitle.com',
+  };
+
+  await api.post('/api/blogs').send(newBlog).expect(400);
+
+  const blogsAtEnd = await helper.blogsInDb();
+  assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length);
+});
+
+test('POST /api/blogs blog without url is not added', async () => {
+  const newBlog = {
+    title: 'Blog Without Url',
+    author: 'No Url Author',
+  };
+
+  await api.post('/api/blogs').send(newBlog).expect(400);
+
+  const blogsAtEnd = await helper.blogsInDb();
+  assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length);
+});
+
 after(() => {
   mongoose.connection.close();
 });

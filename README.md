@@ -201,3 +201,9 @@ Once the test is finished, refactor the operation to use _async/await_ instead o
 Write a test that verifies that if the _likes_ property is missing from the request, it will default to the value 0. Do not test the other properties of the created blogs yet.
 
 Make the required changes to the code so that it passes the test.
+
+### 4.12\*: Blog List tests, step 5
+
+Write tests related to creating new blogs via the _/api/blogs_ endpoint, that verify that if the _title_ or _url_ properties are missing from the request data, the backend responds to the request with the status code _400_ Bad Request.
+
+Make the required changes to the code so that it passes the test.

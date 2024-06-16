@@ -1,6 +1,5 @@
 const express = require('express');
 const Blog = require('../models/blog');
-
 const router = express.Router();
 
 router.get('/', (request, response) => {
@@ -9,14 +8,18 @@ router.get('/', (request, response) => {
   });
 });
 
-router.post('/', async (request, response) => {
-  const body = request.body;
+router.post('/', async (request, response, next) => {
+  const { title, author, url, likes } = request.body;
+
+  if (!title || !url) {
+    return response.status(400).json({ error: 'title or url missing' });
+  }
 
   const blog = new Blog({
-    title: body.title,
-    author: body.author,
-    url: body.url,
-    likes: body.likes || 0,
+    title,
+    author,
+    url,
+    likes: likes || 0,
   });
 
   try {
