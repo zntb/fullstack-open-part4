@@ -189,3 +189,9 @@ Notice that you will have to make similar changes to the code that were made [in
 Write a test that verifies that the unique identifier property of the blog posts is named _id_, by default the database names the property \__id_.
 
 Make the required changes to the code so that it passes the test. The [toJSON](https://fullstackopen.com/en/part3/saving_data_to_mongo_db#connecting-the-backend-to-a-database) method discussed in part 3 is an appropriate place for defining the _id_ parameter.
+
+### 4.10: Blog List Tests, step 3
+
+Write a test that verifies that making an HTTP POST request to the _/api/blogs_ URL successfully creates a new blog post. At the very least, verify that the total number of blogs in the system is increased by one. You can also verify that the content of the blog post is saved correctly to the database.
+
+Once the test is finished, refactor the operation to use _async/await_ instead of promises.
