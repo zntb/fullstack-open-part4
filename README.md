@@ -402,3 +402,11 @@ router.post('/', middleware.userExtractor, async (request, response) => {
   // ...
 });
 ```
+
+### 4.23\*: Blog List Expansion, step 11
+
+After adding token-based authentication the tests for adding a new blog broke down. Fix them. Also, write a new test to ensure adding a blog fails with the proper status code 401 _Unauthorized_ if a token is not provided.
+
+[This](https://github.com/ladjs/supertest/issues/398) is most likely useful when doing the fix.
+
+This is the last exercise for this part of the course and it's time to push your code to GitHub and mark all of your finished exercises to the [exercise submission system](https://studies.cs.helsinki.fi/stats/courses/fullstackopen).
