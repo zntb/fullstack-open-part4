@@ -337,3 +337,68 @@ the field _blog.user_ does not contain a string, but an object. So if you want t
 ```js
 if ( blog.user.toString() === userid.toString() ) ...
 ```
+
+### 4.22\*: Blog List Expansion, step 10
+
+Both the new blog creation and blog deletion need to find out the identity of the user who is doing the operation. The middleware `tokenExtractor` that we did in exercise 4.20 helps but still both the handlers of _post_ and _delete_ operations need to find out who the user holding a specific token is.
+
+Now create a new middleware `userExtractor`, that finds out the user and sets it to the request object. When you register the middleware in _app.js_
+
+```js
+app.use(middleware.userExtractor);
+```
+
+the user will be set in the field `request.user`:
+
+```js
+blogsRouter.post('/', async (request, response) => {
+  // get user from request object
+  const user = request.user;
+  // ..
+});
+
+blogsRouter.delete('/:id', async (request, response) => {
+  // get user from request object
+  const user = request.user;
+  // ..
+});
+```
+
+Note that it is possible to register a middleware only for a specific set of routes. So instead of using `userExtractor` with all the routes,
+
+```js
+const middleware = require('../utils/middleware');
+// ...
+
+// use the middleware in all routes
+
+app.use(middleware.userExtractor);
+
+app.use('/api/blogs', blogsRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/login', loginRouter);
+```
+
+we could register it to be only executed with path _/api/blogs_ routes:
+
+```js
+const middleware = require('../utils/middleware');
+// ...
+
+// use the middleware only in /api/blogs routes
+
+app.use('/api/blogs', middleware.userExtractor, blogsRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/login', loginRouter);
+```
+
+As can be seen, this happens by chaining multiple middlewares as the arguments of the function _use_. It would also be possible to register a middleware only for a specific operation:
+
+```js
+const middleware = require('../utils/middleware');
+// ...
+
+router.post('/', middleware.userExtractor, async (request, response) => {
+  // ...
+});
+```
