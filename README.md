@@ -319,3 +319,21 @@ const tokenExtractor = (request, response, next) => {
   next();
 };
 ```
+
+### 4.21\*: Blog List Expansion, step 9
+
+Change the delete blog operation so that a blog can be deleted only by the user who added it. Therefore, deleting a blog is possible only if the token sent with the request is the same as that of the blog's creator.
+
+If deleting a blog is attempted without a token or by an invalid user, the operation should return a suitable status code.
+
+Note that if you fetch a blog from the database,
+
+```js
+const blog = await Blog.findById(...)
+```
+
+the field _blog.user_ does not contain a string, but an object. So if you want to compare the ID of the object fetched from the database and a string ID, a normal comparison operation does not work. The ID fetched from the database must be parsed into a string first.
+
+```js
+if ( blog.user.toString() === userid.toString() ) ...
+```
