@@ -265,3 +265,17 @@ The operation must respond with a suitable status code and some kind of an error
 Also, **implement tests** that ensure invalid users are not created and that an invalid add user operation returns a suitable status code and error message.
 
 **NB** if you decide to define tests on multiple files, you should note that by default each test file is executed in its own process (see `Test execution model` in the [documentation](https://nodejs.org/api/test.html#test-runner-execution-model)). The consequence of this is that different test files are executed at the same time. Since the tests share the same database, simultaneous execution may cause problems, which can be avoided by executing the tests with the option `--test-concurrency=1`, i.e. defining them to be executed sequentially.
+
+### 4.17: Blog List Expansion, step 5
+
+Expand blogs so that each blog contains information on the creator of the blog.
+
+Modify adding new blogs so that when a new blog is created, _any_ user from the database is designated as its creator (for example the one found first). Implement this according to part 4 chapter [populate](https://fullstackopen.com/en/part4/user_administration#populate). Which user is designated as the creator does not matter just yet. The functionality is finished in exercise 4.19.
+
+Modify listing all blogs so that the creator's user information is displayed with the blog:
+
+![bloglist3](./assets/bloglist3.png)
+
+and listing all users also displays the blogs created by each user:
+
+![bloglist4](./assets/bloglist4.png)

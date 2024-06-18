@@ -2,9 +2,31 @@ const bcrypt = require('bcrypt');
 const usersRouter = require('express').Router();
 const User = require('../models/user');
 
-usersRouter.get('/', async (request, response) => {
-  const users = await User.find({});
-  response.json(users);
+usersRouter.get('/', async (req, response) => {
+  try {
+    const users = await User.find({}).populate('blogs', [
+      'url',
+      'title',
+      'author',
+    ]);
+
+    const formattedUsers = users.map((user) => ({
+      blogs: user.blogs.map((blog) => ({
+        url: blog.url,
+        title: blog.title,
+        author: blog.author,
+        id: blog._id,
+      })),
+      username: user.username,
+      name: user.name,
+      id: user._id,
+    }));
+
+    response.json(formattedUsers);
+  } catch (error) {
+    console.error(error);
+    response.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
 usersRouter.post('/', async (request, response, next) => {
