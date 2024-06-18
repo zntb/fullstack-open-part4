@@ -227,3 +227,29 @@ Use _async/await_.
 The application mostly needs to update the number of _likes_ for a blog post. You can implement this functionality the same way that we implemented updating notes in [part 3](https://fullstackopen.com/en/part3/saving_data_to_mongo_db#other-operations).
 
 Implement tests for the functionality.
+
+## Exercises 4.15.-4.23
+
+In the next exercises, the basics of user management will be implemented for the Bloglist application. The safest way is to follow the course material from part 4 chapter [User administration](https://fullstackopen.com/en/part4/user_administration) to the chapter [Token authentication](https://fullstackopen.com/en/part4/token_authentication). You can of course also use your creativity.
+
+**One more warning:** If you notice you are mixing _async/await_ and then calls, it is 99% certain you are doing something wrong. Use either or, never both.
+
+### 4.15: Blog List Expansion, step 3
+
+Implement a way to create new users by doing an HTTP POST request to address _api/users_. Users have a _username_, _password_ and _name_.
+
+Do not save passwords to the database as clear text, but use the _bcrypt_ library like we did in part 4 chapter [Creating users](https://fullstackopen.com/en/part4/user_administration#creating-users).
+
+**NB** Some Windows users have had problems with _bcrypt_. If you run into problems, remove the library with command
+
+```bash
+npm uninstall bcrypt
+```
+
+and install [bcryptjs](https://www.npmjs.com/package/bcryptjs) instead.
+
+Implement a way to see the details of all users by doing a suitable HTTP request.
+
+The list of users can, for example, look as follows:
+
+![bloglist2](./assets/bloglist2.png)
