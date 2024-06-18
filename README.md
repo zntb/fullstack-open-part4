@@ -253,3 +253,15 @@ Implement a way to see the details of all users by doing a suitable HTTP request
 The list of users can, for example, look as follows:
 
 ![bloglist2](./assets/bloglist2.png)
+
+### 4.16\*: Blog List Expansion, step 4
+
+Add a feature which adds the following restrictions to creating new users: Both username and password must be given and both must be at least 3 characters long. The username must be unique.
+
+The operation must respond with a suitable status code and some kind of an error message if an invalid user is created.
+
+**NB** Do not test password restrictions with Mongoose validations. It is not a good idea because the password received by the backend and the password hash saved to the database are not the same thing. The password length should be validated in the controller as we did in [part 3](https://fullstackopen.com/en/part3/validation_and_es_lint) before using Mongoose validation.
+
+Also, **implement tests** that ensure invalid users are not created and that an invalid add user operation returns a suitable status code and error message.
+
+**NB** if you decide to define tests on multiple files, you should note that by default each test file is executed in its own process (see `Test execution model` in the [documentation](https://nodejs.org/api/test.html#test-runner-execution-model)). The consequence of this is that different test files are executed at the same time. Since the tests share the same database, simultaneous execution may cause problems, which can be avoided by executing the tests with the option `--test-concurrency=1`, i.e. defining them to be executed sequentially.
