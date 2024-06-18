@@ -283,3 +283,7 @@ and listing all users also displays the blogs created by each user:
 ### 4.18: Blog List Expansion, step 6
 
 Implement token-based authentication according to part 4 chapter [Token authentication](https://fullstackopen.com/en/part4/token_authentication).
+
+### 4.19: Blog List Expansion, step 7
+
+Modify adding new blogs so that it is only possible if a valid token is sent with the HTTP POST request. The user identified by the token is designated as the creator of the blog.

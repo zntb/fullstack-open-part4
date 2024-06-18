@@ -1,7 +1,7 @@
-const express = require('express');
+const jwt = require('jsonwebtoken');
 const Blog = require('../models/blog');
 const User = require('../models/user');
-const blogsRouter = express.Router();
+const blogsRouter = require('express').Router();
 
 blogsRouter.get('/', async (request, response) => {
   const blogs = await Blog.find({}).populate('user', ['username', 'name']);
@@ -22,40 +22,45 @@ blogsRouter.get('/', async (request, response) => {
   );
 });
 
-blogsRouter.post('/', async (request, response, next) => {
-  try {
-    const users = await User.find({});
-
-    if (users.length === 0) {
-      return response.status(400).json({ error: 'no users found' });
-    }
-
-    const randomUserIndex = Math.floor(Math.random() * users.length);
-    const randomUser = users[randomUserIndex];
-
-    const { title, url, likes } = request.body;
-
-    if (!title || !url) {
-      return response.status(400).json({ error: 'title or url missing' });
-    }
-
-    const blog = new Blog({
-      title,
-      author: randomUser.username,
-      url,
-      likes: likes || 0,
-      user: randomUser._id,
-    });
-
-    const savedBlog = await blog.save();
-
-    randomUser.blogs = randomUser.blogs.concat(savedBlog._id);
-    await randomUser.save();
-
-    response.status(201).json(savedBlog);
-  } catch (exception) {
-    next(exception);
+const getTokenFrom = (request) => {
+  const authorization = request.get('authorization');
+  if (authorization && authorization.startsWith('Bearer ')) {
+    return authorization.replace('Bearer ', '');
   }
+  return null;
+};
+
+blogsRouter.post('/', async (request, response) => {
+  try {
+  } catch (error) {}
+  const { title, url, likes } = request.body;
+
+  const token = getTokenFrom(request);
+  const decodedToken = jwt.verify(token, process.env.SECRET);
+
+  if (!decodedToken.id) {
+    return response.status(401).json({ error: 'token invalid' });
+  }
+
+  const user = await User.findById(decodedToken.id);
+
+  if (!title || !url) {
+    return response.status(400).json({ error: 'title or url missing' });
+  }
+
+  const blog = new Blog({
+    title,
+    author: user.username,
+    url,
+    likes: likes || 0,
+    user: user._id,
+  });
+
+  const savedBlog = await blog.save();
+  user.blogs = user.blogs.concat(savedBlog._id);
+  await user.save();
+
+  response.status(201).json(savedBlog);
 });
 
 blogsRouter.delete('/:id', async (request, response, next) => {
